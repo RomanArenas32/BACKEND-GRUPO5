@@ -1,11 +1,11 @@
 const express = require("express");
-const {dbConnecion} = require('../database/config');
+const cors = require("cors");
+const { dbConnecion } = require('../database/config');
 
 class Server {
   constructor() {
     this.app = express();
-    this.PORT = process.env.PORT;
-
+    this.PORT = process.env.PORT || 8080; // Establecer un valor predeterminado para PORT
 
     this.dbConnecion();
     
@@ -18,8 +18,17 @@ class Server {
   }
 
   middleware() {
+    // Configuración de CORS
+    this.app.use(cors({
+      origin: 'http://localhost:5173', // Reemplaza esto con el origen de tu frontend
+      methods: ['GET', 'POST', 'PUT', 'DELETE'],
+      allowedHeaders: ['Content-Type', 'Authorization']
+    }));
+
+    // Middleware para parsear el cuerpo de las solicitudes
     this.app.use(express.json());
   }
+
   router() {
     this.app.use("/user", require("../routes/usuarios.routes"));
   }
@@ -32,3 +41,4 @@ class Server {
 }
 
 module.exports = Server;
+
