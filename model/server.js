@@ -20,7 +20,7 @@ class Server {
   middleware() {
     // Configuración de CORS
     this.app.use(cors({
-      origin: 'http://localhost:5173', // Reemplaza esto con el origen de tu frontend
+      origin: 'https://fanciful-hamster-2718f7.netlify.app/', // Reemplaza esto con el origen de tu frontend
       methods: ['GET', 'POST', 'PUT', 'DELETE'],
       allowedHeaders: ['Content-Type', 'Authorization']
     }));
